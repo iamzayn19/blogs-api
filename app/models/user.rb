@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-  enum type: [ :author, :public ], _suffix: true
+  enum user_type: [ :author, :public ], _suffix: true
   has_secure_password
 end
