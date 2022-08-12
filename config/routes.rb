@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
-      resources :blogs
+      resources :blogs do
+        resources :comments
+      end 
       post '/auth/login', to: 'authentication#login'
     end
   end

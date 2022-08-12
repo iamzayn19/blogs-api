@@ -6,7 +6,7 @@ module Api
       
       def index
         @blogs = Blog.all
-        render json: [@blogs, @blogs.comments], status: :ok
+        render json: @blogs
       end
       
       def show
