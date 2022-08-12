@@ -3,7 +3,8 @@ class Blog < ApplicationRecord
 
   enum status: [ :agreed, :rejected, :published, :unpublished ], _default: "unpublished"
   belongs_to :user
-  
+  has_many :comments
+  has_many :blog_likes 
   has_many_attached :images
 
   def liked?
