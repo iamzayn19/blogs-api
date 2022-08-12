@@ -5,7 +5,9 @@ module Api
       before_action :set_comment
       
       def create
-        render json: params, status: :ok
+        @blog = Blog.find(params[:blog_id])
+        @comments = @blog.comments.create(comment_params)
+        render json: @comments, status: :ok
       end
 
       def destroy
@@ -16,6 +18,10 @@ module Api
 
       def set_comment
         @comment = Comment.find(params[:id])
+      end 
+
+      def comment_params
+        params.require(:comment).permit(:text)
       end 
 
     end
