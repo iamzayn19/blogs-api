@@ -5,6 +5,7 @@ module Api
       before_action :set_blog, only: [:show, :destroy]
       
       def index
+        @blogs = Blog.all
         render json: @blogs, status: :ok
       end
       
