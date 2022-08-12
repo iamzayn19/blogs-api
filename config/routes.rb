@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :users
       resources :blogs do
         resources :comments
+        resources :blog_likes
       end 
       post '/auth/login', to: 'authentication#login'
     end

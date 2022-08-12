@@ -6,7 +6,7 @@ module Api
 
       def index
         @blog_likes = BlogLike.where(blog_id: params[:blog_id])
-        render json: @blog_likes
+        render json: @blog_likes.count
       end 
       
       def create
