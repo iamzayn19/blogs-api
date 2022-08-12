@@ -7,7 +7,7 @@ class Blog < ApplicationRecord
   has_many :blog_likes 
   has_many_attached :images
 
-  def liked?
-    !!self.post_likes.find { |like| like.user_id == @current_user.id }
+  def liked?(current_user)
+    !!self.blog_likes.find { |like| like.user_id == current_user.id && like.kept? }
   end 
 end

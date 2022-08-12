@@ -11,8 +11,8 @@ module Api
       
       def create
         params[:user_id] = @current_user.id
-        if Blog.find(params[:blog_id]).liked?
-          render json: "You've already liked the post"
+        if Blog.find(params[:blog_id]).liked?(@current_user)
+          render json: "You've already like this blog!"
         else 
           @blog_like = BlogLike.create(blog_like_params)
           if @blog_like.save
