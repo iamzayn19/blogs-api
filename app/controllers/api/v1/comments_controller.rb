@@ -6,14 +6,14 @@ module Api
 
       def index
         @comments = Comment.where(blog_id: params[:blog_id])
-        render json: @comments
+        render json: CommentSerializer.new(@comments).serializable_hash.to_json
       end 
       
       def create
         params[:user_id] = @current_user.id
         @comment = Comment.create(comment_params)
         if @comment.save
-          render json: @comment
+          render json: CommentSerializer.new(@comment).serializable_hash.to_json
         else 
           render json: "Sorry, your comment couldn't be saved unfortunately!"
         end 
