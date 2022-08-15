@@ -6,7 +6,7 @@ module Api
       
       def index
         @blogs = Blog.kept
-        render json: @blogs
+        render json: BlogSerializer.new(@blogs).serializable_hash.to_json
       end
       
       def create
@@ -25,7 +25,8 @@ module Api
 
       def show
         if @blog.kept?
-          render json: @blog
+          render json: BlogSerializer.new(@blog).serializable_hash.to_json
+
         else 
           render json: "This blog has been deleted"
         end 
