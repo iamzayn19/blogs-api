@@ -5,14 +5,12 @@ module Api
       before_action :set_blog, only: [:show, :destroy]
       
       def index
-        @blogs = Blog.all
+        @blogs = Blog.kept
         render json: @blogs
       end
       
       def create
-        if @current_user.user_type == "public"
-          render json: "You are not allowed to create a blog"
-        else
+        if @current_user.user_type == "author"
           params[:user_id] = @current_user.id
           @blog = Blog.create(blog_params)
           if @blog.save
@@ -20,15 +18,28 @@ module Api
           else
             render json: "Blog creation unsuccessful! Please try again."
           end
+        else
+          render json: "You are not allowed to create a blog"
         end  
       end 
 
       def show
-        render json: @blog, status: :ok
+        if @blog.kept
+          render json: @blog
+        else 
+          render json: "This blog has been deleted"
+        end 
       end
       
       def destroy
-        render json: "Destroy called", status: :ok
+        if @current_user.id == @blog.user_id && @blog.undiscarded?
+            @blog.discard
+            render json: "Blog has been deleted successfully"
+        elsif @current_user.id != @blog.user_id
+            render json: "You are not authorized to perform this action"
+        else
+            render json: "Blog has already been deleted" 
+        end 
       end
       
       private
