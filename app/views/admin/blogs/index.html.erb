@@ -1,6 +1,7 @@
 
 <%= render 'admin/shared/topbar' %>
-<table>
+<div class="text-center d-flex justify-content-center align-items-center">
+<table class="table">
   <tr>
     <th> # </th>
     <th colspan="6"> Title </th>
@@ -11,9 +12,8 @@
     <td><%= blog.id %></td>
     <td colspan="6"><%= blog.title %></td>
     <td><%= blog.status %></td>
-    <td> <%= link_to 'Change status', edit_admin_blog_path(blog)%> </td>
+    <td> <%= link_to 'View to edit', edit_admin_blog_path(blog)%> </td>
   </tr>
   <% end %>
 </table>
-
-<button class="btn btn-alert"> Click </button>
+</div>
