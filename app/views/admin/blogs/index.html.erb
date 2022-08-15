@@ -1,0 +1,18 @@
+dashboard for admin 
+<%= button_to 'Log out', destroy_admin_session_path, method: :delete %>
+
+<table>
+  <tr>
+    <th> # </th>
+    <th colspan="6"> Title </th>
+    <th> Status </th> 
+  </tr>
+  <% @blogs.each do |blog| %>
+  <tr>
+    <td><%= blog.id %></td>
+    <td><%= blog.title %></td>
+    <td><%= blog.status %></td>
+    <td> <%= button_to %> </td>
+  </tr>
+  <% end %>
+</table>

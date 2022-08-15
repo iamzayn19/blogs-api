@@ -30,6 +30,6 @@ class Admin::SessionsController < Devise::SessionsController
   end 
 
   def after_sign_in_path_for(resource)
-    admin_dashboard_index_path(resource: resource)
+    admin_blogs_path(resource: resource)
   end 
 end
