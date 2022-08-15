@@ -16,7 +16,7 @@
             <%= form_with url: admin_blog_change_status_path(@blog.id) do |f| %>
               <div class = "change-box">
                  <h6> Status: <%= @blog.status %> </h6>
-                  <%= f.select :status, ['Agreed', 'Rejected', 'Published', 'Unpublished'], selected: @blog.status %>
+                  <%= f.select :status, ['agreed', 'rejected', 'published', 'unpublished'], selected: @blog.status %>
                   <%= f.submit "Change" %>
                 </h5>
                 <% end %>

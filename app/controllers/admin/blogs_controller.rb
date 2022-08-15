@@ -5,17 +5,13 @@ class Admin::BlogsController < ApplicationController
 
   def edit
     @blog = Blog.find(params[:id])
-  end 
-
-  def update
-  end 
-
-  def change_status
-    render json: params
   end
 
-  def destroy
-    
-  end 
+  def change_status
+    @blog = Blog.find(params[:blog_id])
+    @blog.status = params[:status]
+    @blog.save
+    redirect_to request.referrer
+  end
   
 end 
