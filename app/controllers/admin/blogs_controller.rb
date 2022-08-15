@@ -10,6 +10,10 @@ class Admin::BlogsController < ApplicationController
   def update
   end 
 
+  def change_status
+    render json: params
+  end
+
   def destroy
     
   end 

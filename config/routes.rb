@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    resources :blogs
+    resources :blogs do 
+      post 'change_status', to: 'blogs#change_status'
+    end 
   end 
 
   namespace :api do

@@ -13,16 +13,25 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
             <h1><%= @blog.title %></h1>
+            <%= form_with url: admin_blog_change_status_path(@blog.id) do |f| %>
+              <div class = "change-box">
+                 <h6> Status: <%= @blog.status %> </h6>
+                  <%= f.select :status, ['Agreed', 'Rejected', 'Published', 'Unpublished'], selected: @blog.status %>
+                  <%= f.submit "Change" %>
+                </h5>
+                <% end %>
+              </div>
             <span class="meta">Posted by
               <a href="#"><%= User.find(@blog.user_id).first_name%></a>
-
+              
             </span>
+            <span>
           </div>
         </div>
       </div>
     </div>
   </header>
-
+  <br>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
