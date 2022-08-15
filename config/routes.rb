@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :admin
 
-  root 'api/v1/blogs#index'
+  #root 'api/v1/blogs#index'
+
+  devise_for :admin , controllers: {
+    sessions: "admin/sessions"
+  }
+  
+  namespace :admin do
+    resources :dashboard
+  end 
+
+  
 
   namespace :api do
     namespace :v1 do
