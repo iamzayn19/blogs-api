@@ -1,5 +1,6 @@
-Rails.application.routes.draw do
-  devise_for :admins
+Rails.application.routes.draw dor
+  devise_for :admin
+
   root 'api/v1/blogs#index'
 
   namespace :api do
