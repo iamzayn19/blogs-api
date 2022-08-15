@@ -1,6 +1,6 @@
 <% if @blog.images.attached? %>
   <% @blog.images.each do |image| %>
-    <%= image_tag(image, class: "img_tag justify-content-center") %> <br>
+    <%= image_tag(image, class: "img_tag rounded mx-auto d-block") %> <br>
     <% break %>
   <% end %>
 <% end %> 
@@ -13,9 +13,6 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
             <h1><%= @blog.title %></h1>
-            
-            
-            
             <span class="meta">Posted by
               <a href="#"><%= User.find(@blog.user_id).first_name%></a>
 
@@ -31,16 +28,11 @@
       <div class="col-lg-8 col-md-10 mx-auto">
 
         <p> <%= @blog.body %> </p>
-          
-          
-
         </div>
 
       </div>
     </div>
   </div>
-
-
   <!-- Footer -->
 
 <hr>
