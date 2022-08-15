@@ -1,4 +1,4 @@
-Rails.application.routes.draw dor
+Rails.application.routes.draw do
   devise_for :admin
 
   root 'api/v1/blogs#index'
