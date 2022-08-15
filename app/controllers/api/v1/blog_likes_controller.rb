@@ -6,7 +6,7 @@ module Api
 
       def index
         @blog_likes = BlogLike.where(blog_id: params[:blog_id])
-        render json: @blog_likes.count
+        render json: BlogLikeSerializer.new(@blog_likes).serializable_hash.to_json
       end 
       
       def create
@@ -16,7 +16,7 @@ module Api
         else 
           @blog_like = BlogLike.create(blog_like_params)
           if @blog_like.save
-            render json: @blog_like
+            render json: BlogLikeSerializer.new(@blog_like).serializable_hash.to_json
           else 
             render json: "Couldn't like the post at this time. Try again some other time."
           end 
