@@ -3,7 +3,7 @@ class Admin::BlogsController < ApplicationController
     @blogs = Blog.all
   end
 
-  def edit
+  def show
     @blog = Blog.find(params[:id])
   end
 
