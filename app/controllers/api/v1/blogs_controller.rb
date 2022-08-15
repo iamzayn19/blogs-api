@@ -24,7 +24,7 @@ module Api
       end 
 
       def show
-        if @blog.kept
+        if @blog.kept?
           render json: @blog
         else 
           render json: "This blog has been deleted"
