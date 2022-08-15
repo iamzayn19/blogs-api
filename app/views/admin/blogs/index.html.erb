@@ -1,6 +1,5 @@
-dashboard for admin 
-<%= button_to 'Log out', destroy_admin_session_path, method: :delete %>
 
+<%= render 'admin/shared/topbar' %>
 <table>
   <tr>
     <th> # </th>
@@ -10,9 +9,11 @@ dashboard for admin
   <% @blogs.each do |blog| %>
   <tr>
     <td><%= blog.id %></td>
-    <td><%= blog.title %></td>
+    <td colspan="6"><%= blog.title %></td>
     <td><%= blog.status %></td>
-    <td> <%= link_to 'Change status'%> </td>
+    <td> <%= link_to 'Change status', edit_admin_blog_path(blog)%> </td>
   </tr>
   <% end %>
 </table>
+
+<button class="btn btn-alert"> Click </button>

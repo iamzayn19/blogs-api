@@ -4,9 +4,14 @@ class Admin::BlogsController < ApplicationController
   end
 
   def edit
+    @blog = Blog.find(params[:id])
+  end 
+
+  def update
   end 
 
   def destroy
+    
   end 
   
 end 

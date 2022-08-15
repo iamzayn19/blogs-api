@@ -1,0 +1,10 @@
+<%= @blog.title %>
+
+  <% if @blog.images.attached? %>
+  <% @blog.images.each do |image| %>
+  <%= image_tag(image)%>
+  <% end %>
+  <% end %>
+
+<%= @blog.body %>
+
