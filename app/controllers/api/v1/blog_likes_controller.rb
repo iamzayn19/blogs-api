@@ -5,7 +5,7 @@ module Api
       before_action :set_blog_like, only: :destroy
 
       def index
-        @blog_likes = BlogLike.where(blog_id: params[:blog_id])
+        @blog_likes = BlogLike.where(blog_id: params[:blog_id]).kept
         render json: BlogLikeSerializer.new(@blog_likes).serializable_hash.to_json
       end 
       
