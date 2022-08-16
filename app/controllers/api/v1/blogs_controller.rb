@@ -5,7 +5,7 @@ module Api
       before_action :set_blog, only: [:show, :destroy]
       
       def index
-        @blogs = Blog.kept
+        @blogs = Blog.where(status: "published")
         render json: BlogSerializer.new(@blogs).serializable_hash.to_json
       end
       

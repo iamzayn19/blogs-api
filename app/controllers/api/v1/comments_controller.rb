@@ -5,8 +5,12 @@ module Api
       before_action :set_comment, only: :destroy
 
       def index
-        @comments = Comment.where(blog_id: params[:blog_id])
-        render json: CommentSerializer.new(@comments).serializable_hash.to_json
+        if Blog.find(params[:blog_id]).status == "published"
+          @comments = Comment.where(blog_id: params[:blog_id]).kept
+          render json: CommentSerializer.new(@comments).serializable_hash.to_json
+        else 
+          render json: "The article is not published"
+        end 
       end 
       
       def create

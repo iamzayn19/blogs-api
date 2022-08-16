@@ -5,8 +5,12 @@ module Api
       before_action :set_blog_like, only: :destroy
 
       def index
-        @blog_likes = BlogLike.where(blog_id: params[:blog_id]).kept
-        render json: BlogLikeSerializer.new(@blog_likes).serializable_hash.to_json
+        if Blog.find(params[:blog_id]).status == "published"
+          @blog_likes = BlogLike.where(blog_id: params[:blog_id]).kept
+          render json: BlogLikeSerializer.new(@blog_likes).serializable_hash.to_json
+        else
+          render json: "This article is not published"
+        end 
       end 
       
       def create
