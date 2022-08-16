@@ -104,6 +104,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    digest (3.1.0)
     discard (1.2.1)
       activerecord (>= 4.2, < 8)
     erubi (1.11.0)
@@ -164,6 +165,20 @@ GEM
     mini_mime (1.1.2)
     minitest (5.16.2)
     msgpack (1.5.4)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
+    net-protocol (0.1.3)
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
@@ -248,8 +263,10 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    strscan (3.0.1)
     thor (1.2.1)
     tilt (2.0.11)
+    timeout (0.3.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -296,6 +313,9 @@ DEPENDENCIES
   jsonapi-serializer
   jwt
   listen (~> 3.3)
+  net-imap
+  net-pop
+  net-smtp
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
