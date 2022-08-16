@@ -4,7 +4,7 @@ class BlogSerializer
   attributes :title, :body
 
   attribute :comments do |blog|
-    CommentSerializer.new(blog.comments).as_json['data']
+    CommentSerializer.new(blog.comments.kept).as_json['data']
   end
 
   attribute :user do |blog|
@@ -12,7 +12,7 @@ class BlogSerializer
   end
 
   attribute :blog_likes do |blog|
-    BlogLikeSerializer.new(blog.blog_likes).as_json['data']
+    BlogLikeSerializer.new(blog.blog_likes.kept).as_json['data']
   end 
 
 end
