@@ -2,17 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  #root 'api/v1/blogs#index'
-
-  devise_for :admin , controllers: {
-    sessions: "admin/sessions"
-  }
-
-  namespace :admin do
-    resources :blogs do 
-      post 'change_status', to: 'blogs#change_status'
-    end 
-  end 
+  #root 'api/v1/blogs#index
 
   namespace :api do
     namespace :v1 do
