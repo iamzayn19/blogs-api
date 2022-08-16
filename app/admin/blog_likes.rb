@@ -5,7 +5,7 @@ ActiveAdmin.register BlogLike do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :user_id, :blog_id, :discarded_at
+  permit_params :user_id, :blog_id, :discarded_at
   #
   # or
   #

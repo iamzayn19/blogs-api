@@ -7,9 +7,6 @@ class Blog < ApplicationRecord
   has_many :blog_likes 
   has_many_attached :images
 
-  validates :title, presence: true
-  validates :body, presence: true
-
   def liked?(current_user)
     !!self.blog_likes.find { |like| like.user_id == current_user.id && like.kept? }
   end 
