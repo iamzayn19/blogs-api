@@ -24,6 +24,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'bootstrap'
 
+gem 'activeadmin'
+
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 gem 'discard', '~> 1.2'
