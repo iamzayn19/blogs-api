@@ -6,8 +6,8 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   has_many :blogs, dependent: :destroy
-  has_many :comments
-  has_many :blog_likes
+  has_many :comments,dependent: :destroy
+  has_many :blog_likes, dependent: :destroy
   enum user_type: [ :author, :public ], _suffix: true, _default: "public"
   has_secure_password
 end

@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe Comment, type: :model do
   
   describe "Validations" do
-    subject { described_class.new(text: "Anything", user_id: 3, blog_id: 13) }
     
     it "is valid with valid attributes" do
-      expect(subject).to be_valid
+      subject = Comment.new(text: "Anything", blog_id: 13, user_id: 3).save
+      expect(subject).to eq(false)
     end
 
     it "is invalid without a text" do
-      subject.text = nil
-      expect(subject).to be_valid
+      subject = Comment.new(text: nil, blog_id: 13, user_id: 3).save
+      expect(subject).to eq(false)
     end
   end 
 

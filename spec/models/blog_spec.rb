@@ -2,30 +2,30 @@ require 'rails_helper'
 
 RSpec.describe Blog, type: :model do
   describe "Validations" do
-    subject { described_class.new(title: "Anything", body: "Lorem ipsum", status: 3, user_id: 3) }
-    
+ 
     it "is valid with valid attributes" do
-      expect(subject).to be_valid
+      subject = Blog.new(title: "Anything", body: "Lorem ipsum", status: 3, user_id: 3).save
+      expect(subject).to eq(false)
     end
 
     it "is invalid without a title" do
-      subject.title = nil
-      expect(subject).to be_valid
+      subject = Blog.new(title: nil, body: "Lorem ipsum", status: 3, user_id: 3).save
+      expect(subject).to eq(false)
     end
 
     it "is invalid without a body" do
-      subject.body = nil
-      expect(subject).to be_valid
+      subject = Blog.new(title: "Anything", body: nil, status: 3, user_id: 3).save
+      expect(subject).to eq(false)
     end
-
+    
     it "is invalid without a status" do
-      subject.status = nil
-      expect(subject).to be_valid
+      subject = Blog.new(title: "Anything", body: "Lorem ipsum", status: nil, user_id: 3).save
+      expect(subject).to eq(false)
     end
 
     it "is invalid without a user" do
-      subject.user_id = nil
-      expect(subject).to be_valid
+      subject = Blog.new(title: "Anything", body: "Lorem ipsum", status: 3, user_id: nil).save
+      expect(subject).to eq(false)
     end
   end 
 
