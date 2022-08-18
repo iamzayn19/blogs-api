@@ -25,21 +25,20 @@ module Api
 
       def show
         if @blog.kept?
-          render json: BlogSerializer.new(@blog).serializable_hash.to_json
-
+          render json: BlogSerializer.new(@blog).serializable_hash.to_json, status: 200
         else 
-          render json: "This blog has been deleted"
+          render json: "This blog has been deleted".to_json, status: 401
         end 
       end
       
       def destroy
         if @current_user.id == @blog.user_id && @blog.undiscarded?
             @blog.discard
-            render json: "Blog has been deleted successfully"
+            render json: "Blog has been deleted successfully".to_json, status: 200
         elsif @current_user.id != @blog.user_id
-            render json: "You are not authorized to perform this action"
+            render json: "You are not authorized to perform this action".to_json, status: 401
         else
-            render json: "Blog has already been deleted" 
+            render json: "Blog has already been deleted".to_json, status: 401
         end 
       end
       
