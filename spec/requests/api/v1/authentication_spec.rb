@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Authentication", type: :request do
+
   describe "POST /login" do 
-    User.create(email: 'zain@gmail.com', first_name: 'zain', last_name: 'ul abidin', user_type: 0, password: 'password', password_confirmation: 'password')
-    let(:params) { { email: 'zain@gmail.com' , password: 'password' }}
+    let(:params) { { email: 'usama@gmail.com' , password: 'usama' }}
     it "returns authorization token" do
+      new_user = FactoryBot.create(:user)
+      
       post '/api/v1/auth/login', params: params
       expect(response).to have_http_status(200)
   end 

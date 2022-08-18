@@ -7,7 +7,6 @@ module Api
         params.permit!
         
         @user = User.find_by_email(params[:email])
-        byebug
         if @user&.authenticate(params[:password])
           token = jwt_encode(user_id: @user.id)
           
