@@ -10,6 +10,7 @@ module Api
       end
       
       def create
+        byebug
         if @current_user.user_type == "author"
           params[:user_id] = @current_user.id
           @blog = Blog.create(blog_params)
