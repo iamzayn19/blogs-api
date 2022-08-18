@@ -5,12 +5,12 @@ module Api
 
       def login
         params.permit!
-        byebug
+  
         
         @user = User.find_by_email(params[:email])
         if @user&.authenticate(params[:password])
           token = jwt_encode(user_id: @user.id)
-          byebug
+        
           render json: { token: token }, status: :ok
         else 
           render json: { error: 'unauthorized' }, status: :unauthorized
