@@ -7,12 +7,14 @@ module Api
 
       private
       def authenticate_request
-        
-        header = request.headers["Authorization"]
-        header = header.split(" ").last if header
-        decoded = jwt_decode(header)
-        byebug
-        @current_user = User.find(decoded[:user_id])
+        if request.headers["Authorization"] != nil
+          header = request.headers["Authorization"]
+          header = header.split(" ").last if header
+          decoded = jwt_decode(header)
+          @current_user = User.find(decoded[:user_id])
+        else
+          render json: "Unauthorized".to_json
+        end  
       end 
     end 
   end

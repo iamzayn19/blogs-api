@@ -6,21 +6,20 @@ module Api
       
       def index
         @blogs = Blog.where(status: "published")
-        render json: BlogSerializer.new(@blogs).serializable_hash.to_json
+        render json: BlogSerializer.new(@blogs).serializable_hash.to_json, status: 200
       end
       
       def create
-        byebug
         if @current_user.user_type == "author"
           params[:user_id] = @current_user.id
           @blog = Blog.create(blog_params)
           if @blog.save
-            render json: "Blog created successfully. Please wait for the admin to publish it"
+            render json: "Blog created successfully. Please wait for the admin to publish it".to_json, status: 200
           else
-            render json: "Blog creation unsuccessful! Please try again."
+            render json: "Blog creation unsuccessful! Please try again.".to_json, status: 401
           end
         else
-          render json: "You are not allowed to create a blog"
+          render json: "You are not allowed to create a blog".to_json, status: 401
         end  
       end 
 

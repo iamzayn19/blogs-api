@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Authentication", type: :request do
 
   describe "POST /login" do 
-    let(:params) { { email: 'zain@gmail.com' , password: 'password' }}
+    let(:params) { { email: 'usama@gmail.com' , password: 'usama' }}
     it "returns authorization token" do
       new_user = FactoryBot.create(:user)
       
