@@ -3,7 +3,8 @@ RSpec.describe "Blogs", type: :request do
   user = FactoryBot.create(:user)
   blog = FactoryBot.create(:blog)
   let(:auth_params) { {email: user.email, password: user.password } }
-  let(:blog_params) { { title: blog.title, body: blog.body, user_id: user.id} }
+  let(:blog_params) { { title: blog.title, body: blog.body, user_id: user.id } }
+  let(:show_params) { { id: 41 } }
   let(:token) { { Authorization: "" }}
   describe "testing blogs" do
 
@@ -26,7 +27,6 @@ RSpec.describe "Blogs", type: :request do
       puts JSON.parse(response.body)
     end
 
-
     it "unauthorized user cannot create a blog" do
       post '/api/v1/blogs', params: blog_params
       expect(response).to have_http_status(200)
@@ -40,6 +40,14 @@ RSpec.describe "Blogs", type: :request do
       expect(response).to have_http_status(401)
       puts JSON.parse(response.body)
     end
+
+    it "get a specific blog" do
+      get "/api/v1/blogs/#{show_params[:id]}"
+      expect(response).to have_http_status(200)
+      puts JSON.parse(response.body)
+    end
+
+
 
   end
 end
