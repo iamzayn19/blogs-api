@@ -5,18 +5,33 @@ RSpec.describe "Blogs", type: :request do
   $user.reload
   let(:auth_params) { {email: $user.email, password: $user.password } }
 
-  #let(:token) { { Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNiwiZXhwIjoxNjYxNDEzOTkzfQ.wx3v3M4fCl_an9P-4Sq3iNIEpNxizJlHF0e84qsWQ2g" }}
+  let(:token) { { Authorization: "" }}
   describe "testing blogs" do
-    
-   
-    it "returns all the blogs" do
+
+    before(:each) do 
       post '/api/v1/auth/login', params: auth_params
-      token = JSON.parse(response.body)['token'] 
+      token[:Authorization] = JSON.parse(response.body)['token'] 
+    end 
+
+    it "returns all the blogs" do
     
       get '/api/v1/blogs'
       expect(response).to have_http_status(200)
       puts JSON.parse(response.body)
     end 
+
+    it "created a blog successfully" do   
+      $user.user_type = 0
+      $user.save
+      post '/api/v1/blogs', params:  { title: 'sample title' , body: 'sample body', user_id: '1' }, headers: token
+      expect(response).to have_http_status(200)
+      puts JSON.parse(response.body)
+    end 
+
+
+            
+   
+
   end
 
   
