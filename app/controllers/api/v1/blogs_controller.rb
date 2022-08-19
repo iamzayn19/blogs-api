@@ -4,11 +4,11 @@ class Api::V1::BlogsController < Api::V1::ApiController
   
   def index
     blogs = Blog.published
-    render json: BlogSerializer.new(@blogs), status: 200
+    render json: BlogSerializer.new(blogs), status: 200
   end
   
   def create
-    if @current_user.author?
+    if @current_user.author_user_type?
       blog = @current_user.blogs.create(blog_params)
       if blog.save
         render json: "Blog created successfully. Please wait for the admin to publish it", status: 200
@@ -21,21 +21,21 @@ class Api::V1::BlogsController < Api::V1::ApiController
   end 
 
   def show
-    if @blog.kept?
-      render json: BlogSerializer.new(@blog), status: 200
+    if blog.kept?
+      render json: BlogSerializer.new(blog), status: 200
     else 
-      render json: "This blog has been deleted".to_json, status: 401
+      render json: "This blog has been deleted", status: 401
     end 
   end
   
   def destroy
-    if @current_user.id == @blog.user_id && @blog.undiscarded?
-      @blog.discard
-      render json: "Blog has been deleted successfully".to_json, status: 200
-    elsif @current_user.id != @blog.user_id
-      render json: "You are not authorized to perform this action".to_json, status: 401
+    if @current_user.id == blog.user_id && @blog.undiscarded?
+      blog.discard
+      render json: "Blog has been deleted successfully", status: 200
+    elsif @current_user.id != blog.user_id
+      render json: "You are not authorized to perform this action", status: 401
     else
-      render json: "Blog has already been deleted".to_json, status: 401
+      render json: "Blog has already been deleted", status: 401
     end 
   end
   
@@ -45,7 +45,7 @@ class Api::V1::BlogsController < Api::V1::ApiController
     end 
 
     def set_blog
-      @blog = Blog.find(params[:id])
+      blog = Blog.find(params[:id])
     end 
 end
   
