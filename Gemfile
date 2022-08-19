@@ -24,7 +24,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'bootstrap'
 gem 'activeadmin'
-
+gem 'kaminari'
 gem 'net-smtp', require: false
 gem 'net-imap', require: false
 gem 'net-pop', require: false

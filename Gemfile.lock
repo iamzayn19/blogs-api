@@ -344,6 +344,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jsonapi-serializer
   jwt
+  kaminari
   listen (~> 3.3)
   net-imap
   net-pop
