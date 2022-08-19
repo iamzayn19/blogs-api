@@ -26,16 +26,34 @@ RSpec.describe "BlogLikes", type: :request do
       token[:Authorization] = JSON.parse(response.body)['token']
     end
 
-    it "user can delete a post like if he/she did it" do
+    it "user can delete a blog like if he/she did it" do
       delete "/api/v1/blogs/#{index_params[:id]}/blog_likes/#{delete_params[:id]}", headers: token
       expect(response).to have_http_status(200)
       puts JSON.parse(response.body)
     end
 
-    it "user cannot delete a post like if he/she didn't do it" do
+    it "user cannot delete a blog like if he/she didn't do it" do
       delete "/api/v1/blogs/#{index_params[:id]}/blog_likes/#{random_delete_params[:id]}", headers: token
       expect(response).to have_http_status(401)
       puts JSON.parse(response.body)
-    end    
+    end
+    
+    it "returns all the likes for a blog" do  
+      get "/api/v1/blogs/#{index_params[:id]}/blog_likes"
+      expect(response).to have_http_status(200)
+      puts JSON.parse(response.body)
+    end
+
+    it "unauthorized user cannot like a blog" do
+      post "/api/v1/blogs/#{index_params[:id]}/blog_likes", params: blog_like_params
+      expect(response).to have_http_status(401)
+      puts JSON.parse(response.body)
+    end
+
+    it "liked the blog successfully" do
+      post "/api/v1/blogs/#{index_params[:id]}/blog_likes", params: blog_like_params, headers: token
+      expect(response).to have_http_status(200)
+      puts JSON.parse(response.body)
+    end
   end
 end
