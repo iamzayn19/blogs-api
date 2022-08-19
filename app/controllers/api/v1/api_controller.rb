@@ -1,11 +1,9 @@
-module Api
-  module V1
-    class ApiController < ActionController::API
-      include JsonWebToken
+  class Api::V1::ApiController < ActionController::API
+    include JsonWebToken
 
-      before_action :authenticate_request
+    before_action :authenticate_request
 
-      private
+    private
       def authenticate_request
         if request.headers["Authorization"] != nil
           header = request.headers["Authorization"]
@@ -16,6 +14,4 @@ module Api
           render json: "Unauthorized".to_json, status: 401
         end  
       end 
-    end 
-  end
-end
+  end 
