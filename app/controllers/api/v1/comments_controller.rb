@@ -4,7 +4,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
   def index
     # TODO Add paginaiton
-    
+
     if Blog.find(params[:blog_id]).published?
       comments = Comment.where(blog_id: params[:blog_id]).kept
       render json: CommentSerializer.new(comments), status: 200
