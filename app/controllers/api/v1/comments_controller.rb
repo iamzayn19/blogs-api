@@ -24,9 +24,11 @@ module Api
       end
 
       def destroy
-        if @comment.user_id == @current_user.id
-          @comment.discard 
+        if @comment.user_id == @current_user.id && @comment.undiscarded?
+          @comment.discard
           render json: "Comment deleted successfully!".to_json, status: 200
+        elsif @comment.user_id != @current_user.id
+          render json: "You are not authorized to perform this action".to_json, status: 401
         else
           render json: "Comment deletion unsuccessful!".to_json, status: 401
         end 

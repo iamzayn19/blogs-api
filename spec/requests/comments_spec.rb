@@ -33,15 +33,12 @@ RSpec.describe "Comments", type: :request do
     end
 
     it "created a comment successfully" do
-      post '/api/v1/auth/login', params: auth_params
-      token[:Authorization] = JSON.parse(response.body)['token']
-
       post "/api/v1/blogs/#{index_params[:id]}/comments", params: comment_params, headers: token
       expect(response).to have_http_status(200)
       puts JSON.parse(response.body)
     end
 
-    it "unauthorized ruser cannot create a comment" do
+    it "unauthorized user cannot create a comment" do
       post "/api/v1/blogs/#{index_params[:id]}/comments", params: comment_params
       expect(response).to have_http_status(401)
       puts JSON.parse(response.body)
@@ -55,6 +52,13 @@ RSpec.describe "Comments", type: :request do
 
     it "user cannot delete a comment if he/she didn't write it" do
       delete "/api/v1/blogs/#{index_params[:id]}/comments/#{random_delete_params[:id]}", headers: token
+      expect(response).to have_http_status(401)
+      puts JSON.parse(response.body)
+    end
+
+    it "user cannot delete a comment if the comment is already deleted" do
+      comment.discard
+      delete "/api/v1/blogs/#{index_params[:id]}/comments/#{delete_params[:id]}", headers: token
       expect(response).to have_http_status(401)
       puts JSON.parse(response.body)
     end
