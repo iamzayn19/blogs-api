@@ -1,5 +1,5 @@
 <%= @user.first_name %>
 
 <p>
-  Thank you for signing up.
+  Click on this link to verify your account <%= link_to 'Confirm account', api_v1_confirmation_new_url(id: @user.id) %>
 </p>

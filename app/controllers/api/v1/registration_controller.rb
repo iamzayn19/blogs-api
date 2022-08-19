@@ -8,15 +8,7 @@ class Api::V1::RegistrationController < Api::V1::ApiController
       render json: "Email delivered"
     else 
       render json: "Email not delivered"
-    end 
-
-    # @user = User.find_by_email(params[:email])
-    # if @user&.authenticate(params[:password])
-    #   token = jwt_encode(user_id: @user.id)
-    #   render json: { token: token }, status: :ok
-    # else 
-    #   render json: { error: 'unauthorized' }, status: :unauthorized
-    # end
+    end
   end
   
   private
