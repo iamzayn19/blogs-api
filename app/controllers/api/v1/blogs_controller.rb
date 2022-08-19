@@ -1,23 +1,22 @@
-class Api::V1::BlogsController < ApiController
+class Api::V1::BlogsController < Api::V1::ApiController
   skip_before_action :authenticate_request, only: [:index, :show]
   before_action :set_blog, only: [:show, :destroy]
   
   def index
-    @blogs = Blog.published
-    render json: BlogSerializer.new(@blogs).serializable_hash.to_json, status: 200
+    blogs = Blog.published
+    render json: BlogSerializer.new(@blogs), status: 200
   end
   
   def create
     if @current_user.author?
-      params[:user_id] = @current_user.id
-      @blog = Blog.create(blog_params)
-      if @blog.save
-        render json: "Blog created successfully. Please wait for the admin to publish it".to_json, status: 200
+      blog = @current_user.blogs.create(blog_params)
+      if blog.save
+        render json: "Blog created successfully. Please wait for the admin to publish it", status: 200
       else
-        render json: "Blog creation unsuccessful! Please try again.".to_json, status: 401
+        render json: "Blog creation unsuccessful! Please try again.", status: 401
       end
     else
-      render json: "You are not allowed to create a blog".to_json, status: 401
+      render json: "You are not allowed to create a blog", status: 401
     end  
   end 
 

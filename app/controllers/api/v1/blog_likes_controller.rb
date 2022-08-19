@@ -1,4 +1,4 @@
-class Api::V1BlogLikesController < ApiController
+class Api::V1::BlogLikesController < Api::V1::ApiController
   skip_before_action :authenticate_request, only: [:index]
   before_action :set_blog_like, only: :destroy
 

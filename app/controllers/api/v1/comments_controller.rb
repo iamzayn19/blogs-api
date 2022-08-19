@@ -1,4 +1,4 @@
-class Api::V1::ApiControllerCommentsController < ApiController
+class Api::V1::CommentsController < Api::V1::ApiController
   skip_before_action :authenticate_request, only: [:index]
   before_action :set_comment, only: :destroy
 
