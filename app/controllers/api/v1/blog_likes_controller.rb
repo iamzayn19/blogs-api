@@ -29,7 +29,7 @@ module Api
 
       def destroy
         if @blog_like.user_id == @current_user.id
-          @blog_like.discard 
+            @blog_like.discard 
           render json: "Like removed!".to_json, status: 200
         else
           render json: "Like removal unsuccessful!".to_json, status: 401
