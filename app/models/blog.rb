@@ -5,7 +5,7 @@ class Blog < ApplicationRecord
   has_many :comments
   has_many :blog_likes
   has_many_attached :images
-
+  
   enum status: {
                   agreed: 0,
                   rejected: 1,
