@@ -19,7 +19,7 @@ class Api::V1::BlogsController < Api::V1::ApiController
       render json: "You are not allowed to create a blog", status: 401
     end  
   end 
-
+  
   def show
     if blog.kept?
       render json: BlogSerializer.new(blog), status: 200
@@ -29,7 +29,7 @@ class Api::V1::BlogsController < Api::V1::ApiController
   end
   
   def destroy
-    if @current_user.id == blog.user_id && @blog.undiscarded?
+    if @current_user.id == blog.user_id && blog.undiscarded?
       blog.discard
       render json: "Blog has been deleted successfully", status: 200
     elsif @current_user.id != blog.user_id
