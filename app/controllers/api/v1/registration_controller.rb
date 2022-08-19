@@ -5,9 +5,9 @@ class Api::V1::RegistrationController < Api::V1::ApiController
     user = User.new(user_params)
     if user.save
       UserMailer.signup_confirmation(user).deliver
-      render json: "Email delivered"
+      render json: "Account creation successful. Please check your email for confirmation link."
     else 
-      render json: "Email not delivered"
+      render json: "Sorry, your account couldn't be created."
     end
   end
   
