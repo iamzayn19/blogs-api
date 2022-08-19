@@ -11,7 +11,7 @@ RSpec.describe "Blogs", type: :request do
   let(:delete_params) { { id: random_id } }
   let(:token) { { Authorization: "" }}
   describe "testing blogs" do
-
+    
     before(:each) do
       post '/api/v1/auth/login', params: auth_params
       token[:Authorization] = JSON.parse(response.body)['token']
@@ -33,7 +33,7 @@ RSpec.describe "Blogs", type: :request do
 
     it "unauthorized user cannot create a blog" do
       post '/api/v1/blogs', params: blog_params
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(401)
       puts JSON.parse(response.body)
     end
 
@@ -47,7 +47,6 @@ RSpec.describe "Blogs", type: :request do
 
     it "user can view a specific blog" do
       get "/api/v1/blogs/#{show_params[:id]}"
-     
       expect(response).to have_http_status(200)
       puts JSON.parse(response.body)
     end
@@ -59,21 +58,24 @@ RSpec.describe "Blogs", type: :request do
       puts JSON.parse(response.body)
     end
 
-    # it "user cannot delete a blog if he/she has already deleted the blog" do
-    #   delete_params[:id] = blog.id
-    #   delete "/api/v1/blogs/#{delete_params[:id]}", headers: token
-      
-    #   expect(response).to have_http_status(401)
-    #   puts JSON.parse(response.body)
-    # end
+    it "user cannot view a blog if it is deleted" do
+      blog.discard
+      show_params[:id] = blog.id
+      get "/api/v1/blogs/#{show_params[:id]}"
+      expect(response).to have_http_status(401)
+      puts JSON.parse(response.body)
+      blog.undiscard
+    end
 
-    # it "user cannot view a blog if it is deleted" do
-    #   show_params[:id] = blog.id;
-    #   byebug
-    #   get "/api/v1/blogs/#{show_params[:id]}"
-    #   expect(response).to have_http_status(401)
-    #   puts JSON.parse(response.body)
-    # end
+    it "user cannot delete a blog if he/she has already deleted the blog" do
+      blog.discard
+      delete_params[:id] = blog.id
+      delete "/api/v1/blogs/#{delete_params[:id]}", headers: token
+      expect(response).to have_http_status(401)
+      puts JSON.parse(response.body)
+    end
+
+   
 
     it "user cannot delete a blog if he/she didn't write it" do
       delete "/api/v1/blogs/#{delete_params[:id]}", params: delete_params, headers: token
