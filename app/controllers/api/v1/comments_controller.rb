@@ -7,9 +7,9 @@ module Api
       def index
         if Blog.find(params[:blog_id]).status == "published"
           @comments = Comment.where(blog_id: params[:blog_id]).kept
-          render json: CommentSerializer.new(@comments).serializable_hash.to_json
+          render json: CommentSerializer.new(@comments).serializable_hash.to_json, status: 200
         else 
-          render json: "The article is not published"
+          render json: "The article is not published".to_json, status: 401
         end 
       end 
       
@@ -17,18 +17,18 @@ module Api
         params[:user_id] = @current_user.id
         @comment = Comment.create(comment_params)
         if @comment.save
-          render json: CommentSerializer.new(@comment).serializable_hash.to_json
+          render json: CommentSerializer.new(@comment).serializable_hash.to_json, status: 200
         else 
-          render json: "Sorry, your comment couldn't be saved unfortunately!"
+          render json: "Sorry, your comment couldn't be saved unfortunately!".to_json, status: 401
         end 
       end
 
       def destroy
         if @comment.user_id == @current_user.id
           @comment.discard 
-          render json: "Comment deleted successfully!"
+          render json: "Comment deleted successfully!".to_json, status: 200
         else
-          render json: "Comment deletion unsuccessful!"
+          render json: "Comment deletion unsuccessful!".to_json, status: 401
         end 
       end
       

@@ -13,7 +13,7 @@ module Api
           decoded = jwt_decode(header)
           @current_user = User.find(decoded[:user_id])
         else
-          render json: "Unauthorized".to_json
+          render json: "Unauthorized".to_json, status: 401
         end  
       end 
     end 
