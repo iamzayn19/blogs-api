@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         resources :blog_likes
       end 
       post '/session/new', to: 'session#create'
+      post '/registration/new', to: 'registration#create'
     end
   end
 
