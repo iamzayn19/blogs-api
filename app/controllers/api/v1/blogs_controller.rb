@@ -1,9 +1,11 @@
 class Api::V1::BlogsController < Api::V1::ApiController
   skip_before_action :authenticate_request, only: [:index, :show]
   before_action :set_blog, only: [:show, :destroy]
+  after_action { pagy_headers_merge(@pagy) if @pagy }
   
   def index
-    blogs = Blog.published
+
+    @pagy, blogs = pagy(Blog.published,items: 2)
     render json: BlogSerializer.new(blogs), status: 200
   end
   

@@ -1,12 +1,12 @@
 class Api::V1::CommentsController < Api::V1::ApiController
   skip_before_action :authenticate_request, only: [:index]
   before_action :set_comment, only: :destroy
-
+  after_action { pagy_headers_merge(@pagy) if @pagy }
   def index
     # TODO Add paginaiton
 
     if Blog.find(params[:blog_id]).published?
-      comments = Comment.where(blog_id: params[:blog_id]).kept
+      @pagy, comments = pagy(Comment.where(blog_id: params[:blog_id]).kept,items: 5)
       render json: CommentSerializer.new(comments), status: 200
     else 
       render json: "The article is not published", status: 401

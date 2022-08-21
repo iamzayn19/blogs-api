@@ -1,6 +1,6 @@
   class Api::V1::ApiController < ActionController::API
     include JsonWebToken
-
+    include Pagy::Backend
     before_action :authenticate_request
 
     private
