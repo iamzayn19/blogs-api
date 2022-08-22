@@ -1,9 +1,11 @@
 class Api::V1::BlogsController < Api::V1::ApiController
   skip_before_action :authenticate_request, only: [:index, :show]
   before_action :set_blog, only: [:show, :destroy]
+  after_action { pagy_headers_merge(@pagy) if @pagy }
   
   def index
-    blogs = Blog.published
+
+    @pagy, blogs = pagy(Blog.published,items: 2)
     render json: BlogSerializer.new(blogs), status: 200
   end
   
@@ -21,7 +23,7 @@ class Api::V1::BlogsController < Api::V1::ApiController
   end 
   
   def show
-    if blog.kept?
+    if @blog.kept?
       render json: BlogSerializer.new(blog), status: 200
     else 
       render json: "This blog has been deleted", status: 401
@@ -29,10 +31,10 @@ class Api::V1::BlogsController < Api::V1::ApiController
   end
   
   def destroy
-    if @current_user.id == blog.user_id && blog.undiscarded?
-      blog.discard
+    if @current_user.id == @blog.user_id && @blog.undiscarded?
+      @blog.discard
       render json: "Blog has been deleted successfully", status: 200
-    elsif @current_user.id != blog.user_id
+    elsif @current_user.id != @blog.user_id
       render json: "You are not authorized to perform this action", status: 401
     else
       render json: "Blog has already been deleted", status: 401
@@ -45,7 +47,7 @@ class Api::V1::BlogsController < Api::V1::ApiController
     end 
 
     def set_blog
-      blog = Blog.find(params[:id])
+      @blog = Blog.find(params[:id])
     end 
 end
   

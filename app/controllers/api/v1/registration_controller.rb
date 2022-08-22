@@ -4,7 +4,8 @@ class Api::V1::RegistrationController < Api::V1::ApiController
   def create
     user = User.new(user_params)
     if user.save
-      UserMailer.signup_confirmation(user).deliver
+      token = jwt_confirmation_encode(user_id: user.id)
+      UserMailer.signup_confirmation(user,token).deliver
       render json: "Account creation successful. Please check your email for confirmation link."
     else 
       render json: "Sorry, your account couldn't be created."

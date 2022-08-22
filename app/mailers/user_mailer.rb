@@ -5,8 +5,15 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.signup_confirmation.subject
   #
-  def signup_confirmation(user)
+  def signup_confirmation(user,token)
+    @token = token
     @user = user
     mail to: user.email, subject: "Sign up confirmation"
   end
+
+  def resend_confirmation(user,token)
+    @token = token
+    @user = user
+    mail to: user.email, subject: "Account confirmation"
+  end 
 end
