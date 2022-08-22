@@ -23,8 +23,8 @@ class Api::V1::CommentsController < Api::V1::ApiController
   end
 
   def destroy
-    if comment.user_id == @current_user.id && comment.undiscarded?
-      comment.discard
+    if @comment.user_id == @current_user.id && @comment.undiscarded?
+      @comment.discard
       render json: "Comment deleted successfully!", status: 200
     elsif @comment.user_id != @current_user.id
       render json: "You are not authorized to perform this action", status: 401
@@ -35,7 +35,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   
   private
     def set_comment
-      comment = Comment.find(params[:id])
+      @comment = Comment.find(params[:id])
     end 
 
     def comment_params
