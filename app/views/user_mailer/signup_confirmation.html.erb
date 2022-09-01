@@ -1,0 +1,6 @@
+Hi <%= @user.first_name %>,
+<p>
+  Please click on this link to verify your account<%= link_to 'Confirm account', api_v1_confirmation_new_url(id: @user.id, token: @token) %>
+</p>
+
+<p> This token will expire in two minutes </p>
