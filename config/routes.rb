@@ -11,7 +11,9 @@ Rails.application.routes.draw do
         resources :comments
         resources :blog_likes
       end 
-      post '/auth/login', to: 'authentication#login'
+      post '/session/new', to: 'session#create'
+      post '/registration/new', to: 'registration#create'
+      get '/confirmation/new', to: 'confirmation#create'
     end
   end
 
